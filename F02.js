@@ -35,3 +35,7 @@ const cookieHandler = {
 // console.log(cookieHandler.getCookies());
 // console.log(cookieHandler.storeInSessionStorage());
 // console.log(cookieHandler.deleteCookies());
+
+// cookieHandler.getCookies();
+// cookieHandler.storeInSessionStorage();
+// cookieHandler.deleteCookies();

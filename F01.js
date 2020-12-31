@@ -9,3 +9,6 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwi
 const expires = now.toUTCString();
 
 document.cookie = `token=${token};expires=${expires};path='/';`;
+
+// maxAge-dzsel egyszerűbben megoldható
+document.cookie = `token1=${token};max-age=${15 * 60};path='/';`;
