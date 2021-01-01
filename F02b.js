@@ -11,19 +11,15 @@
 
 'use strict';
 
-// document.cookie = 'viewed=5';
-// document.cookie = 'uid=354774631237';
-// document.cookie = 'ssid=Bx55OWbHJ0Vt_IGIFÍ';
-
-const cookies2handle = [
-    'viewed=5',
-    'uid=354774631237',
-    'ssid=Bx55OWbHJ0Vt_IGIFÍ'
-];
-
-cookies2handle.forEach(cookie => document.cookie = cookie);
-
 const cookieHandler = {
+    cookies2handle: [
+        'viewed=5',
+        'uid=354774631237',
+        'ssid=Bx55OWbHJ0Vt_IGIFÍ'
+    ],
+    storeCookies() {
+        this.cookies2handle.forEach(cookie => document.cookie = cookie);
+    },
     getCookies() {
         const cookies = document.cookie
             .split('; ')
@@ -31,12 +27,13 @@ const cookieHandler = {
         return cookies;
     },
     storeInSessionStorage() {
-        const cookies = cookieHandler.getCookies();
+        const cookies = this.getCookies();
         cookies.forEach(obj => sessionStorage.setItem(`${obj.name}`, `${obj.value}`));
     },
     deleteCookies() {
-        const cookies = cookieHandler.getCookies();
-        cookies.forEach(obj => document.cookie = `${obj.name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/';`)
+        // const cookies = cookieHandler.getCookies();
+        // cookies.forEach(obj => document.cookie = `${obj.name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/';`)
+        this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=0; path='/';`)
     },
 }
 
