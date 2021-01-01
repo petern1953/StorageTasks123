@@ -17,6 +17,7 @@ const cookieHandler = {
         'uid=354774631237',
         'ssid=Bx55OWbHJ0Vt_IGIFÍ'
     ],
+    nullUTCDate: new Date(0).toUTCString(),
     storeCookies() {
         this.cookies2handle.forEach(cookie => document.cookie = cookie);
     },
@@ -33,8 +34,10 @@ const cookieHandler = {
     deleteCookies() {
         // const cookies = cookieHandler.getCookies();
         // cookies.forEach(obj => document.cookie = `${obj.name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/';`)
+        // or
         // this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=0; path='/';`)
-        this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=-1; path='/';`)
+        // or
+        this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; expires=${this.nullUTCDate}; path='/';`)
     },
 }
 
