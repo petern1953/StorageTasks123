@@ -33,7 +33,8 @@ const cookieHandler = {
     deleteCookies() {
         // const cookies = cookieHandler.getCookies();
         // cookies.forEach(obj => document.cookie = `${obj.name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path='/';`)
-        this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=0; path='/';`)
+        // this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=0; path='/';`)
+        this.cookies2handle.forEach(obj => document.cookie = `${obj.name}=; max-age=-1; path='/';`)
     },
 }
 
