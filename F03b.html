@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax-like request</title>
+</head>
+
+<body>
+    <div id="container">
+    </div>
+    <script>
+        'use strict';
+
+        const targetDiv = document.querySelector('#container');
+        const fetchURL = "http://localhost:3000/keyValuePairs";
+
+        const fromArrayToDiv = function (div, arr) {
+            div.innerHTML = `<div>\n${arr.map((item, idx) => `<p>${item.firstName} ${item.lastName}</p>\n`).join('')}</div>`;
+        }
+
+        // Lekérjük az adatokat.
+        const getFetchData = async (url) => {
+            let users = [];
+            try {
+                // Danger zone.
+                const response = await fetch(url);
+                if (response.status > 399) {
+                    throw new Error('Request error');
+                }
+                users = await response.json();
+                // End of danger zone.
+            } catch (e) {
+                console.error(e);
+            }
+            return users;
+        };
+
+        const fillInDiv = function (div) {
+            let html = localStorage.getItem('users');
+            // console.log('html: ', html);
+            if (!html) {
+                getFetchData(fetchURL)
+                    .then(users => {
+                        const storageItem = JSON.stringify(users);
+                        localStorage.setItem('users', storageItem);
+                        fromArrayToDiv(div, users);
+                    });
+            } else {
+                try {
+                    let users = JSON.parse(html)
+                    // console.log('users: ', users)
+                    fromArrayToDiv(div, users);
+                } catch (e) {
+                    console.error(e);
+                }
+            };
+        }
+
+    </script>
+</body>
+
+</html>

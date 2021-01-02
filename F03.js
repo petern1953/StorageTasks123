@@ -1,6 +1,6 @@
 // Adott egy json file, amely valójában egy tömb, lastName, firstName property-ket tartalmazó objektumokkal.
 // Írj egy függvényt, amely indít egy ajax kérést, amely elkéri a json tartalmát, és a firstName, lastName párosokat
-// egymás alá beleírja egy div-en belüli p-tagekbe, és létrehoz egy users nevű bejegyzést a localStorage-ba, 
+// egymás alá beleírja egy div-en belüli p-tagekbe, és létrehoz egy users nevű bejegyzést a localStorage-ban, 
 // ahol a json tartalmát letárolja.
 // Módosítsd a függvényt úgy, hogy amennyiben a localStorage-ban 
 // van users bejegyzés, úgy onnan olvassa ki az adatokat,
@@ -21,7 +21,17 @@ const fromArrayToDiv = function (div, arr) {
 
 const fillInDiv = function (div) {
     fetch("http://localhost:3000/keyValuePairs", fetchInit).then(
-        data => data.json(),
+        data => {
+            // console.log(data.status);
+            if (data.status >= 400) {
+                // throw Error("bad url");
+                console.error("bad url");
+            }
+            else {
+                console.log(data.json());
+                data.json();
+            }
+        },
         err => console.error(err)
     ).then(users => {
         const storageItem = JSON.stringify(users);
@@ -29,6 +39,7 @@ const fillInDiv = function (div) {
         fromArrayToDiv(div, users);
     }).catch(err => {
         console.error(err);
+
     });
 };
 
@@ -36,6 +47,7 @@ const fillInDiv = function (div) {
 
 const fillInDiv2 = function (div) {
     let html = localStorage.getItem('users');
+    console.log('html: ', html)
     if (html) {
         fromArrayToDiv(div, JSON.parse(html));
     } else fillInDiv(div);
